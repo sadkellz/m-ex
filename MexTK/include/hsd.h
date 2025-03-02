@@ -283,14 +283,14 @@ struct HSD_PollData // unofficial name, not sure what its actually called
 };
 
 /*** Static Variables ***/
-static HSD_IDTable *stc_hsd_default_table = 0x804C23EC;
-static HSD_VI *stc_HSD_VI = 0x8046b0f0;
-static HSD_Update *stc_hsd_update = 0x80479d58;
-static int **stc_rng_seed = 0x804D5F94;
+static HSD_IDTable *stc_hsd_default_table = (HSD_IDTable*)0x804C23EC;
+static HSD_VI *stc_HSD_VI = (HSD_VI*)0x8046b0f0;
+static HSD_Update *stc_hsd_update = (HSD_Update*)0x80479d58;
+static int **stc_rng_seed = (int**)0x804D5F94;
 static HSD_Pad *stc_engine_pads = (HSD_Pad *)0x804c21cc;
-static u64 *stc_pause_plink_whitelists = 0x803da888; // array of u64 bitfields defining which gobj p_links should run for the corresponding PauseKind
-static HSD_PollData *stc_hsd_polldata = 0x804c1f78;
-static GXPixelFmt *stc_hsd_pixelfmt = 0x804d76c8;
+static u64 *stc_pause_plink_whitelists = (u64*)0x803da888; // array of u64 bitfields defining which gobj p_links should run for the corresponding PauseKind
+static HSD_PollData *stc_hsd_polldata = (HSD_PollData*)0x804c1f78;
+static GXPixelFmt *stc_hsd_pixelfmt = (GXPixelFmt*)0x804d76c8;
 
 /*** Functions ***/
 

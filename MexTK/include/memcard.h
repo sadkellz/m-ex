@@ -2792,14 +2792,14 @@ struct Rules4
 };
 
 /*** Static Variables ***/
-static MemcardInfo *stc_memcard_info = 0x80433380;
-static MemcardUnk *stc_memcard_unk = 0x803bacc8;
-static MemcardWork *stc_memcard_work = 0x80432a68;
-static Memcard *stc_memcard = 0x8045a6c0; // pointer to this data @ 0x804d3ee0
-static int *stc_memcard_block_curr = R13 + (-0x3d20);
-static int *stc_memcard_block_last = R13 + (-0x3d1c);
-static int *stc_memcard_write_status = 0x804d1138;
-static int *stc_CardXferredBytes = R13 + (-0x3D14);
+static MemcardInfo *stc_memcard_info = (MemcardInfo*)0x80433380;
+static MemcardUnk *stc_memcard_unk = (MemcardUnk*)0x803BACC8;
+static MemcardWork *stc_memcard_work = (MemcardWork*)0x80432A68;
+static Memcard *stc_memcard = (Memcard*)0x8045A6C0; // pointer to this data @ 0x804d3ee0
+static int *stc_memcard_block_curr = (int*)(R13 + (-0x3D20));
+static int *stc_memcard_block_last = (int*)(R13 + (-0x3D1C));
+static int *stc_memcard_write_status = (int*)0x804D1138;
+static int *stc_CardXferredBytes = (int*)(R13 + (-0x3D14));
 
 /*** Memcard Library ***/
 void Memcard_InitWorkArea();

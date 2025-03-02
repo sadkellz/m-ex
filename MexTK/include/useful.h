@@ -527,12 +527,12 @@ typedef struct SIXYLookup
 } SIXYLookup;
 
 /*** Static Vars ***/
-static OSInfo *os_info = 0x80000000;
-static int *stc_fst_totalentrynum = 0x804D7284;
-static FSTEntry **stc_fst_entries = 0x804D727C; // -0x4424, indexed by entrynum (0 is always the root directory)
-static char **stc_fst_filenames = 0x804D7280;   // use FSTEntry.filename_offset to find an entrynums name
-static int *stc_si_sampling_rate = 0x804D740C;
-static SIXYLookup *stc_si_xy = 0x80402ca0;
+static OSInfo *os_info = (OSInfo*)0x80000000;
+static int *stc_fst_totalentrynum = (int*)0x804D7284;
+static FSTEntry **stc_fst_entries = (FSTEntry**)0x804D727C; // -0x4424, indexed by entrynum (0 is always the root directory)
+static char **stc_fst_filenames = (char**)0x804D7280;   // use FSTEntry.filename_offset to find an entrynums name
+static int *stc_si_sampling_rate = (int*)0x804D740C;
+static SIXYLookup *stc_si_xy = (SIXYLookup*)0x80402ca0;
 
 /*** OS Library ***/
 int OSGetTick();

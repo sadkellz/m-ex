@@ -267,7 +267,7 @@ typedef struct MexData
     void *misc;
 } MexData;
 
-static MEXFunctionLookup **stc_mexfunction_lookup = 0x804dfad8;
+static MEXFunctionLookup **stc_mexfunction_lookup = (MEXFunctionLookup**)0x804dfad8;
 
 /*** Functions ***/
 HSD_Archive *MEX_LoadRelArchive(char *file, void *functions, char *symbol);

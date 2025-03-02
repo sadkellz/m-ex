@@ -3135,13 +3135,13 @@ struct FtScriptIK
 */
 
 /** Static Variables **/
-static ftCommonBone ***stc_ftbone = (R13 + -0x515C);
-static ftCommonData **stc_ftcommon = (R13 + -0x514C);
-static ColAnimDesc **stc_plco_colanimdesc = 0x804D653C;
-static GXColor **stc_shieldcolors = (R13 + -0x5194);
-static FtDmgVibrateDesc **stc_dmg_vibrate_desc = (R13 + -0x5170);
-static int *stc_ft_hitlog = (R13 + -0x5148); // used as semi-local variables remembering if a solid hit occured @ 8006cbc4
-static int *stc_ft_tiplog = (R13 + -0x5144); // used as semi-local variables remembering if a tip hit occured @ 8006cbc4
+static ftCommonBone ***stc_ftbone = (ftCommonBone***)(R13 + -0x515C);
+static ftCommonData **stc_ftcommon = (ftCommonData**)(R13 + -0x514C);
+static ColAnimDesc **stc_plco_colanimdesc = (ColAnimDesc**)0x804D653C;
+static GXColor **stc_shieldcolors = (GXColor**)(R13 + -0x5194);
+static FtDmgVibrateDesc **stc_dmg_vibrate_desc = (FtDmgVibrateDesc**)(R13 + -0x5170);
+static int *stc_ft_hitlog = (int*)(R13 + -0x5148); // used as semi-local variables remembering if a solid hit occured @ 8006cbc4
+static int *stc_ft_tiplog = (int*)(R13 + -0x5144); // used as semi-local variables remembering if a tip hit occured @ 8006cbc4
 
 /*** Functions ***/
 GOBJ *Fighter_Create(PlayerData *pd);

@@ -451,7 +451,7 @@ struct Stage
         GOBJ *gobj; // 0x72c, points to the map gobj
         Vec3 pos;   // 0x730, current position of hazard
         float x73c; // 0x73c, unk
-    } catch;
+    } Catch;
     int x740; // 0x740, unk, used by onett cars only? 801c5784
 };
 
@@ -573,14 +573,14 @@ struct MapItemDesc
     ItemDesc *desc;
 };
 
-static Stage *stc_stage = 0x8049e6c8;
-static int *ftchkdevice_windnum = R13 + (-0x5128);
-static int *ftchkdevice_grabnum = R13 + (-0x512C);
-static int *ftchkdevice_dmgnum = R13 + (-0x5130);
-static int *stc_gr_ext_cur = 0x804d49e8;
-static GrExtLookup *stc_gr_lookup_cur = 0x804d49ec;
-static LineRange *stc_line_range = 0x80458868;
-static GOBJ **stc_stage_hud_gobj = 0x804d6d80; // points to a gobj that gets rendered to the hud camera
+static Stage *stc_stage = (Stage*)0x8049e6c8;
+static int *ftchkdevice_windnum = (int*)R13 + (-0x5128);
+static int *ftchkdevice_grabnum = (int*)R13 + (-0x512C);
+static int *ftchkdevice_dmgnum = (int*)R13 + (-0x5130);
+static int *stc_gr_ext_cur = (int*)0x804d49e8;
+static GrExtLookup *stc_gr_lookup_cur = (GrExtLookup*)0x804d49ec;
+static LineRange *stc_line_range = (LineRange*)0x80458868;
+static GOBJ **stc_stage_hud_gobj = (GOBJ**)0x804d6d80; // points to a gobj that gets rendered to the hud camera
 
 /*** Functions ***/
 int Stage_GetRandomExternalID();

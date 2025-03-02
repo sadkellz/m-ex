@@ -731,16 +731,16 @@ struct HSD_SObjDesc
 
 /*** Static Variables ***/
 // static GOBJ ***stc_gobj_gx_lookup = R13 + (-0x3E7C);
-static GOBJ ***stc_gobj_lookup = R13 + (-0x3E74);    //
-static u8 *stc_gobj_proc_num = 0x804ce382;           // number of elements in the below array
-static GOBJProc ***stc_gobjproc_lookup = 0x804D7840; // array of gobj procs ptrs
-static GOBJProc **stc_gobjproc_cur = 0x804d7838;     // current gobj proc being processed
-static u32 *stc_gobjproc_updateidx_cur = 0x804d783c; // update index of the current gobj proc being processed. this is compared to
-static u8 *objkind_sobj = R13 + -(0x3D40);
-static u8 *objkind_cobj = R13 + -(0x3E55);
-static u8 *objkind_lobj = R13 + -(0x3E56);
-static u8 *objkind_jobj = R13 + -(0x3E57);
-static u8 *objkind_fog = R13 + -(0x3E58);
+static GOBJ ***stc_gobj_lookup = (GOBJ***)R13 + (-0x3E74);    //
+static u8 *stc_gobj_proc_num = (u8*)0x804ce382;           // number of elements in the below array
+static GOBJProc ***stc_gobjproc_lookup = (GOBJProc***)0x804D7840; // array of gobj procs ptrs
+static GOBJProc **stc_gobjproc_cur = (GOBJProc**)0x804d7838;     // current gobj proc being processed
+static u32 *stc_gobjproc_updateidx_cur = (u32*)0x804d783c; // update index of the current gobj proc being processed. this is compared to
+static u8 *objkind_sobj = (u8*)R13 + -(0x3D40);
+static u8 *objkind_cobj = (u8*)R13 + -(0x3E55);
+static u8 *objkind_lobj = (u8*)R13 + -(0x3E56);
+static u8 *objkind_jobj = (u8*)R13 + -(0x3E57);
+static u8 *objkind_fog = (u8*)R13 + -(0x3E58);
 
 /*** Functions ***/
 int JOBJ_GetWorldPosition(JOBJ *source, Vec3 *add, Vec3 *dest);
