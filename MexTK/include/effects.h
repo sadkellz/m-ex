@@ -238,10 +238,10 @@ ptclGen *psKillGenerator(ptclGen *gen, ptclGen *unk);
 ptclGen *psKillGeneratorEZ(ptclGen *gen);
 void psInitDataBanks(int bank_no, void *ptcl, void *texg, int r6, int r7);
 
-static u16 *stc_ptclnum = (u16*)R13 + (-0x3DBE);      // number of pctls alive
+static u16 *stc_ptclnum = (u16*)(R13 + (-0x3DBE));      // number of pctls alive
 static Particle **stc_ptcl = (Particle**)0x804d0908;        // last created ptcl
-static ptclGen **stc_ptclgen = (ptclGen**)R13 + (-0x3DA4); // last created gen
-static ptclGen **stc_ptclgencurr = (ptclGen**)R13 + (-0x3DA8);
-static u16 *stc_ptclgennum = (u16*)R13 + (-0x3DC0);
+static ptclGen **stc_ptclgen = (ptclGen**)(R13 + (-0x3DA4)); // last created gen
+static ptclGen **stc_ptclgencurr = (ptclGen**)(R13 + (-0x3DA8));
+static u16 *stc_ptclgennum = (u16*)(R13 + (-0x3DC0));
 
 #endif

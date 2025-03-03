@@ -3449,14 +3449,10 @@ void Fighter_Playerblock_SetSpawnPosition(int slot, Vec3 *pos);
 void Fighter_Playerblock_SetupVictoryPose(int slot, int pose);
 void Demo_RenderFighterPasses(GOBJ* gobj);
 
-
-
-
-
-
 void Fighter_EnterDemoLose(GOBJ* fighter);
 void Fighter_EnterDemoWin1(GOBJ* fighter);
 void Fighter_EnterDemoWin2(GOBJ* fighter);
 void Fighter_EnterDemoWin3(GOBJ* fighter);
+void GXLink_Victory(GOBJ* gobj);
 
 #endif

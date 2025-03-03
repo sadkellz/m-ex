@@ -574,9 +574,9 @@ struct MapItemDesc
 };
 
 static Stage *stc_stage = (Stage*)0x8049e6c8;
-static int *ftchkdevice_windnum = (int*)R13 + (-0x5128);
-static int *ftchkdevice_grabnum = (int*)R13 + (-0x512C);
-static int *ftchkdevice_dmgnum = (int*)R13 + (-0x5130);
+static int *ftchkdevice_windnum = (int*)(R13 + (-0x5128));
+static int *ftchkdevice_grabnum = (int*)(R13 + (-0x512C));
+static int *ftchkdevice_dmgnum = (int*)(R13 + (-0x5130));
 static int *stc_gr_ext_cur = (int*)0x804d49e8;
 static GrExtLookup *stc_gr_lookup_cur = (GrExtLookup*)0x804d49ec;
 static LineRange *stc_line_range = (LineRange*)0x80458868;

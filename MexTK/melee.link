@@ -1119,3 +1119,4 @@ CC008000:gx_pipe
 8000c160:memzero
 80272f7c:JOBJ_SetScale
 8031ca04:Demo_RenderFighterPasses
+8031dc80:GXLink_Victory
