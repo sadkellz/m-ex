@@ -775,6 +775,7 @@ float JOBJ_GetJointAnimNextFrame(JOBJ *joint);
 void JOBJ_SetAllMOBJFlags(JOBJ *joint, int flags);
 void JOBJ_SetFlagAllMOBJ(JOBJ *joint, int flags); // enables this flag for all mobjs
 int JOBJ_CheckAObjEnd(JOBJ *joint);
+int JOBJ_SetScale(JOBJ *joint, float scale);
 void JOBJ_CompileTEVAllMOBJ(JOBJ *joint);
 void JObj_DispAll(JOBJ *joint, Mtx *vmtx, int rendermode, int mobj_flags);
 void JOBJ_AttachPosition(JOBJ *to_attach, JOBJ *attach_to);

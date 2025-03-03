@@ -3438,4 +3438,25 @@ GXColor Fighter_GetPlyHUDColor(int ply); // used for lupe, pokemon stadium text 
 /// @return 1 if cpu should be processed this frame and 0 otherwise
 int Fighter_CheckToProcessCPU(FighterData *);
 
+void Fighter_InitJobjInfo();
+void Fighter_ResetPlayerBlocks();
+void Fighter_Playerblock_SetCharacterKind(int slot, CharacterKind c_kind);
+void Fighter_Playerblock_SetColor(int slot, int color);
+void Fighter_Playerblock_SetPort(int slot, int port);
+void Fighter_Playerblock_SetSlotType(int slot, int type);
+void Fighter_Playerblock_SetSpawnDirection(int slot, float dir);
+void Fighter_Playerblock_SetSpawnPosition(int slot, Vec3 *pos);
+void Fighter_Playerblock_SetupVictoryPose(int slot, int pose);
+void Demo_RenderFighterPasses(GOBJ* gobj);
+
+
+
+
+
+
+void Fighter_EnterDemoLose(GOBJ* fighter);
+void Fighter_EnterDemoWin1(GOBJ* fighter);
+void Fighter_EnterDemoWin2(GOBJ* fighter);
+void Fighter_EnterDemoWin3(GOBJ* fighter);
+
 #endif

@@ -594,6 +594,7 @@ void TRK_FlushCache(void *startAddr, u32 nBytes);
 // int memcmp(void *buf1, void *buf2, u32 nBytes);
 void blr();
 void blr2();
+void memzero(void *buf, u32 length);
 
 /*** THP Functions ***/
 void MTH_Init(char *filename, void *playback_param, void *buffer, int buffer_size, void *unk);

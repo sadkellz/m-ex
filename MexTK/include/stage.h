@@ -645,4 +645,7 @@ void Stage_ApplyColAnim(GOBJ *map, ColAnimDesc *colanim);
 void Stage_DisableColAnim(GOBJ *map);
 int Stage_GetExternalID();
 int Stage_ExternalToInternal(int ext_id);
+
+void Stage_SetGrParamScale(float scale);
+void Stage_x10Callback(GrInternal stage_id);
 #endif
