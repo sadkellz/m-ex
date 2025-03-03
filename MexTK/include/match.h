@@ -578,16 +578,10 @@ struct MatchCamera
     int x3a4;                              // 0x3a4
     int x3a8;                              // 0x3a8
     int x3ac;                              // 0x3ac
-    int x3b0;                              // 0x3b0
-    int x3b4;                              // 0x3b4
-    int x3b8;                              // 0x3b8
-    int x3bc;                              // 0x3bc
-    int x3c0;                              // 0x3c0
-    int x3c4;                              // 0x3c4
-    int x3c8;                              // 0x3c8
-    int x3cc;                              // 0x3cc
-    int x3d0;                              // 0x3d0
-    int x3d4;                              // 0x3d4
+    Vec3 targetcam_dist;                   // 0x3b0
+    Vec3 targetcam_eye;                    // 0x3bc
+    Vec3 targetcam_interest;               // 0x3c8
+    float targetcam_fov;                   // 0x3d4
     Vec3 devcam_pos;                       // 0x3d8
     Vec3 devcam_rot;                       // 0x3e4
     float devcam_fov;                      // 0x3f0
@@ -2861,6 +2855,7 @@ void Match_SetNormalCamera();
 void Match_SetFreeCamera(int unk, int unk2);
 void Match_SetZoomCamera(int unk, int unk2);
 void Match_SetFixedCamera();
+void Match_SetFollowCamera(int slot);
 void Match_SetDevelopCamera();
 void DevCam_AdjustRotate(COBJ *cobj, Vec3 *wobjpos, Vec3 *rotate, float stickX, float stickY);
 void DevCam_AdjustPan(COBJ *cobj, float stickX, float stickY);
@@ -2904,4 +2899,5 @@ char *Match_GetVIResultFilename(CharacterKind c_kind);
 void Match_InitFighterClass();
 void Match_InitCameraInfo(int pool_size);
 void Match_InitPlatPassCallback();
+void Camera_Mode7_Default(GOBJ* Camera, Vec3* cmSubject, float stickX, float stickY);
 #endif

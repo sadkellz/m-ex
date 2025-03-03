@@ -3454,5 +3454,6 @@ void Fighter_EnterDemoWin1(GOBJ* fighter);
 void Fighter_EnterDemoWin2(GOBJ* fighter);
 void Fighter_EnterDemoWin3(GOBJ* fighter);
 void GXLink_Victory(GOBJ* gobj);
+CmSubject *Fighter_GetCameraData(GOBJ* fighter);
 
 #endif

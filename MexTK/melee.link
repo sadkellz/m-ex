@@ -1120,3 +1120,6 @@ CC008000:gx_pipe
 80272f7c:JOBJ_SetScale
 8031ca04:Demo_RenderFighterPasses
 8031dc80:GXLink_Victory
+8002feec:Match_SetFollowCamera
+80086b74:Fighter_GetCameraData
+80227ba8:Camera_Mode7_Default
