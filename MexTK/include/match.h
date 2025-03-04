@@ -578,9 +578,9 @@ struct MatchCamera
     int x3a4;                              // 0x3a4
     int x3a8;                              // 0x3a8
     int x3ac;                              // 0x3ac
-    Vec3 targetcam_dist;                   // 0x3b0
-    Vec3 targetcam_eye;                    // 0x3bc
-    Vec3 targetcam_interest;               // 0x3c8
+    Vec3 targetcam_offset;                 // 0x3b0
+    Vec3 targetcam_interest;                    // 0x3bc
+    Vec3 targetcam_eye;               // 0x3c8
     float targetcam_fov;                   // 0x3d4
     Vec3 devcam_pos;                       // 0x3d8
     Vec3 devcam_rot;                       // 0x3e4
