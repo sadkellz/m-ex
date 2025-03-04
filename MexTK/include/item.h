@@ -1060,4 +1060,7 @@ bool Item_RemoveFighterReference(GOBJ *item, GOBJ *fighter);
 /// @brief updates item flags related to hitlag TODO: better description
 /// @param item
 void Item_ClearHitlagFlag(GOBJ *item);
+
+void Item_Init(GOBJ* item, SpawnItem* data);
+
 #endif

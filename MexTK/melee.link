@@ -1123,3 +1123,4 @@ CC008000:gx_pipe
 8002feec:Match_SetFollowCamera
 80086b74:Fighter_GetCameraData
 80227ba8:Camera_Mode7_Default
+80267aa8:Item_Init
