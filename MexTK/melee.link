@@ -1124,3 +1124,16 @@ CC008000:gx_pipe
 80086b74:Fighter_GetCameraData
 80227ba8:Camera_Mode7_Default
 80267aa8:Item_Init
+80012994:GX_PostProcess_Blur
+80365f28:LObj_SetupInit
+8021eb10:Match_CopyCobj
+800138ec:Camera_BlurCreate
+800138d8:Camera_BlurSetBlurAmount
+800138cc:Camera_BlurSetCallback
+8017fe54:Camera_BlurCallback
+80032d80:Fighter_Playerblock_SetSpawnPlatPos
+80361350:HSD_FreeImageDesc
+80391580:HSD_DrawRectangle
+80391a04:HSD_Setup2DDrawing
+8037a68c:HSD_MtxAlloc
+8037a6d8:HSD_MtxFree

@@ -371,4 +371,9 @@ HSD_ObjAllocData *HSD_FObjGetAllocData();
 void HSD_IDInsertToTable(HSD_IDTable *id_table, u32 id, void *data);
 void HSD_IDRemoveByIDFromTable(HSD_IDTable *id_table, u32 id);
 void *HSD_IDGetDataFromTable(HSD_IDTable *id_table, u32 id, u8 *success);
+void HSD_FreeImageDesc(_HSD_ImageDesc *image);
+void HSD_DrawRectangle(double x, double y, double width, double height, GXColor *color);
+void HSD_Setup2DDrawing(float scale_x, float scale_y, byte line_width);
+Mtx *HSD_MtxAlloc(void);
+void HSD_MtxFree(Mtx *mtx);
 #endif

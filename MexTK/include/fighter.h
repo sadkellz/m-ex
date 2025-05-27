@@ -3447,6 +3447,7 @@ void Fighter_Playerblock_SetSlotType(int slot, int type);
 void Fighter_Playerblock_SetSpawnDirection(int slot, float dir);
 void Fighter_Playerblock_SetSpawnPosition(int slot, Vec3 *pos);
 void Fighter_Playerblock_SetupVictoryPose(int slot, int pose);
+void Fighter_Playerblock_SetSpawnPlatPos(int slot, Vec3 *pos);
 void Demo_RenderFighterPasses(GOBJ* gobj);
 
 void Fighter_EnterDemoLose(GOBJ* fighter);

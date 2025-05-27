@@ -628,6 +628,7 @@ void VIConfigure(GXRenderModeObj *rm);
 void VISetPostRetraceCallback(void *cb);
 void GXWaitDrawDone();
 void GXSetDrawDone();
+void GX_PostProcess_Blur(double truck, double pedestal, double dolly2, double dolly, double tint, _HSD_ImageDesc *image, u8 amount, u32 brightness);
 
 /*
 ######################

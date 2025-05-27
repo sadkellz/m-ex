@@ -13,7 +13,18 @@
 #include "scene.h"
 #include "preload.h"
 
+#define NULL ((void *)0)
+
 /*** Macros ***/
+
+/// @brief Converts degrees to radians
+/// @param deg
+/// @return radians
+inline double deg2rad(double deg)
+{
+    return deg * (M_PI / (double) 180.f);
+}
+
 #define GetElementsIn(arr) sizeof(arr) / sizeof(arr[0])
 
 /*** Functions ***/

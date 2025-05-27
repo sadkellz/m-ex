@@ -2900,4 +2900,9 @@ void Match_InitFighterClass();
 void Match_InitCameraInfo(int pool_size);
 void Match_InitPlatPassCallback();
 void Camera_Mode7_Default(GOBJ* Camera, Vec3* cmSubject, float stickX, float stickY);
+void Match_CopyCobj(GOBJ *target_camera);
+GOBJ *Camera_BlurCreate(double truck, double pedestal, double dolly, double dolly2, _HSD_ImageDesc *image, void *render_cb, byte render_prio, byte amount);
+void Camera_BlurSetBlurAmount(GOBJ *camera, int blur_amt);
+void Camera_BlurSetCallback(GOBJ *camera, void *callback);
+void Camera_BlurCallback(GOBJ *camera);
 #endif

@@ -534,6 +534,11 @@ static char **stc_fst_filenames = (char**)0x804D7280;   // use FSTEntry.filename
 static int *stc_si_sampling_rate = (int*)0x804D740C;
 static SIXYLookup *stc_si_xy = (SIXYLookup*)0x80402ca0;
 
+static _HSD_ImageDesc *stc_blur_imgdesc = (_HSD_ImageDesc*)0x80472d58;
+static GOBJ **stc_blur_gobj = (GOBJ**)0x80472d54;
+static int *stc_blur_amount = (int*)0x80472e34;
+static float *stc_blur_tint = (float*)0x80472e38;
+
 /*** OS Library ***/
 int OSGetTick();
 u64 OSGetTime();
