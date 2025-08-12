@@ -4,6 +4,16 @@
 #include "structs.h"
 #include "datatypes.h"
 
+typedef enum BGMKind
+{
+    BGM_HOWTOPLAY = 37,
+    BGM_MENU1 = 52,
+    BGM_TROPHY,
+    BGM_MENU2,
+    BGM_TOU1 = 93,
+    BGM_TOU2 = 94,
+} BGMKind;
+
 typedef enum FGMGroup
 {
     FGMGROUP_PERSIST,   // main, pokemon, nr_name, end
@@ -27,6 +37,14 @@ typedef enum FGM_Main
     FGMMAIN_CS_ERASE_CAUTION1 = 188,
     FGMMAIN_CS_ERASE_CAUTION2,
 } FGM_Main;
+
+typedef enum FGM_Narrator_Select
+{
+
+    FGMNRSELECT_MULTIMAN = 30000,
+    FGMNRSELECT_CHOOSECHAR = 30004,
+    FGMNRSELECT_MELEE,
+} FGM_Narrator_Select;
 
 enum FGMID
 {
@@ -335,25 +353,27 @@ struct AXLive
     HPSChunkHeader hps_chunk_headers[3]; // 0x1c60, circular buffer of 3 most recent hps headers
 };
 
-static FGMLive *fgm_live = (FGMLive*)0x804c45a0; // points to an array of ? FGMLive structs
-static AXLive *ax_live = (AXLive*)0x804c28e0;
-static VPB *stc_voice_data = (VPB*)0x804c2c64;
-static float *stc_fgm_volume = (float*)(R13 + -0x7dbc);
-static float *stc_bgm_volume = (float*)(R13 + -0x7db8);
-static BGMData *stc_bgm_data = (BGMData*)(R13 + -0x5668);                      // voice index of the bgm currently playing, is -1 when nothing is playing
-static VPB *stc_bgm_vpb = (VPB*)(R13 + -0x3f54);                           // is set when the first hps sample is played @ 8038b33c. value is copied to the prev member of the vpb struct before being updated
-static int *stc_bgm_data_seed = (int*)(R13 + -0x3f50);                     // is used to generate the next bgm's bgm_data
-static int *stc_bgm_tick = (int*)(R13 + -0x3f44);                          // how many times bgm audio has been updated (incremented @ 8038ad44)
-static BGMData *stc_bgm_data2 = (BGMData*)(R13 + -0x3f40);                     // contains some data about the bgm, including its voice_index
-static int *stc_bgm_entrynum = (int*)(R13 + -0x3f3c);                      // entrynum of the hps file currently playing again
-static int *stc_bgm_is_playing = (int*)(R13 + -0x5668);                    // is -1 when not playing
-static int *stc_bgm_curLoadingHpsChunkHeaderIndex = (int*)(R13 + -0x3f38); // index of the cur hps chunk header loaded (0-2 circular buffer)
-static int *stc_bgm_lastLoadedHPSChunkIndex = (int*)(R13 + -0x3f34);       // index of the most recent hps chunk loaded (0-2 circular buffer), changes after hps chunk is loaded @ 8038ad6c
-static int *stc_bgm_curPlayingHpsChunkHeaderIndex = (int*)(R13 + -0x3f2c); // index of the cur hps chunk header playing (0-2 circular buffer)
-static u8 *stc_bgm_isLoadingHPSChunk = (u8*)(R13 + -0x3f28);              // flag that indicates an hps chunk is being loaded
-static int *stc_bgm_aramAlloc = (int*)(R13 + -0x3f20);                     // start of the 3 hps chunk circular buffer
-static int *stc_fgm_tick = (int*)(R13 + -0x3f14);                          // how many times fgm audio has been updated (incremented @ 8038ad44)
-static FGMLive *stc_last_fgmlive = (FGMLive*)(R13 + -0x3f0c);                  // points to the most recently created FGMLive struct
+static FGMLive *fgm_live = 0x804c45a0; // points to an array of ? FGMLive structs
+static AXLive *ax_live = 0x804c28e0;
+static VPB *stc_voice_data = 0x804c2c64;
+static float *stc_fgm_volume = R13 + -0x7dbc;
+static float *stc_bgm_volume = R13 + -0x7db8;
+static BGMData *stc_bgm_data = R13 + -0x5668;                      // voice index of the bgm currently playing, is -1 when nothing is playing
+static VPB *stc_bgm_vpb = R13 + -0x3f54;                           // is set when the first hps sample is played @ 8038b33c. value is copied to the prev member of the vpb struct before being updated
+static int *stc_bgm_data_seed = R13 + -0x3f50;                     // is used to generate the next bgm's bgm_data
+static int *stc_bgm_tick = R13 + -0x3f44;                          // how many times bgm audio has been updated (incremented @ 8038ad44)
+static BGMData *stc_bgm_data2 = R13 + -0x3f40;                     // contains some data about the bgm, including its voice_index
+static int *stc_bgm_entrynum = R13 + -0x3f3c;                      // entrynum of the hps file currently playing again
+static int *stc_bgm_is_playing = R13 + -0x5668;                    // is -1 when not playing
+static int *stc_bgm_curLoadingHpsChunkHeaderIndex = R13 + -0x3f38; // index of the cur hps chunk header loaded (0-2 circular buffer)
+static int *stc_bgm_lastLoadedHPSChunkIndex = R13 + -0x3f34;       // index of the most recent hps chunk loaded (0-2 circular buffer), changes after hps chunk is loaded @ 8038ad6c
+static int *stc_bgm_curPlayingHpsChunkHeaderIndex = R13 + -0x3f2c; // index of the cur hps chunk header playing (0-2 circular buffer)
+static u8 *stc_bgm_isLoadingHPSChunk = R13 + -0x3f28;              // flag that indicates an hps chunk is being loaded
+static int *stc_bgm_aramAlloc = R13 + -0x3f20;                     // start of the 3 hps chunk circular buffer
+static int *stc_fgm_tick = R13 + -0x3f14;                          // how many times fgm audio has been updated (incremented @ 8038ad44)
+static FGMLive *stc_last_fgmlive = R13 + -0x3f0c;                  // points to the most recently created FGMLive struct
+static int *stc_audioheap_loaded_size = 0x804d6448;                // -0x5258, size of the files loaded into the audio heap
+static int *stc_audioheap_pending_size = 0x804d6450;               // -0x5250, size of the files pending
 
 int SFX_Play(int sfxID);
 int SFX_PlayRaw(int sfx, int volume, int pan, int instance_slot, int fgm_kind); // any instance_slot other than 0 will remember the current instance and destroy it if another is requested to play with that slot
@@ -374,7 +394,8 @@ void BGM_Play(int hpsID);
 void BGM_Stop();
 void BGM_Pause();
 void BGM_Resume();
-void BGM_SetVolume(float volume); // 0 - 1
+int BGM_GetPreferredVolume();   // 0 - > 127, derived from sound options in main menu
+void BGM_SetVolume(int volume); // 0 - > 127
 int FGM_CheckActive(u32 fgm_id);
 void FGM_Stop(u32 fgm_id);
 int FGM_SetVolume(u32 sfxid, u8 volume);

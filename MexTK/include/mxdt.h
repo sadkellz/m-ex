@@ -209,6 +209,32 @@ typedef struct MexSceneData
     MinorSceneDesc *minor_desc_arr;
 } MexSceneData;
 
+typedef struct MexKirbyData
+{
+    struct {
+        char *filename;
+        char *symbol;
+    } *capfiles;
+    void *capruntime;
+    void *costumes;
+    void *costumeruntime;
+    void *effectids;
+    FtAction **ftcmd;
+} MexKirbyData;
+
+typedef struct MexKirbyFunction
+{
+    void *OnAbilityGain;
+    void *OnAbilityLose;
+    void *OnSpecialN;
+    void *OnSpecialAirN;
+    void *OnHit;
+    void *OnItemInit;
+    FtState **move_logic;
+    void *OnDeath;
+    void *OnFrame;
+} MexKirbyFunction;
+
 typedef struct MexData
 {
     MexMetaData *metadata;
@@ -241,12 +267,56 @@ typedef struct MexData
             } *costume_symbol_table;       // array of these per costume
         } *costume_file;                   // 0x14, array of these per character
         // theres more im just lazy
-        void *ftdemo_filenames;
-        void *anim_filenames;
+        struct                             //
+        {                                  //
+            char *result;
+            char *intro;
+            char *ending;
+            char *wait;
+        } **ftdemo;                   // 0x18, array of these per character
+        void *anim_filenames;         // 0x1C
         void *anim_num;
         u8 *effect_index;
+        char **result_file;
+        float *result_scale;
+        int *victory_theme;
+        int *announcer_call;
+        void *ssm_files;
+        void *costume_pointers;
+        struct
+        {
+            void *x00;
+            HSD_Archive *archive;
+        } *ft_archives;
+        u8 *walljump;
+        void *rst_runtime;
+        void *item_lookup;
+        u16 *target_test_lookup;
+        void *fighter_music;
+        void *vi_files;
+        char **endclassicfiles;
+        char **endadventurefiles;
+        char **endallstarfiles;
+        char **endmoviefiles;
+        int *race_to_finish;
+        int *demo_params;
     } *fighter; // indexed by ft_kind
-    void *fighter_function;
+    struct
+    {
+        void (**OnLoad)(GOBJ *fighter);
+        void (**OnDeath)(GOBJ *fighter);
+        void (**OnUnk)(GOBJ *fighter);
+        FtState **move_logic;
+        void (**SpecialN)(GOBJ *fighter);
+        void (**SpecialNAir)(GOBJ *fighter);
+        void (**SpecialS)(GOBJ *fighter);
+        void (**SpecialSAir)(GOBJ *fighter);
+        void (**SpecialHi)(GOBJ *fighter);
+        void (**SpecialHiAir)(GOBJ *fighter);
+        void (**SpecialLw)(GOBJ *fighter);
+        void (**SpecialLwAir)(GOBJ *fighter);
+        // ... and various more
+    } *fighter_function;
     void *ssm;
     MexMusicTable *music;
     struct
@@ -259,8 +329,8 @@ typedef struct MexData
         } *files;
     } *effect;
     void *item;
-    void *kirby;
-    void *kirby_function;
+    MexKirbyData *kirby_data;
+    MexKirbyFunction *kirby_function;
     MexStageTable *stage;
     GrDesc **stage_desc; // indexed by GrKind (internal ID)
     void *scene;

@@ -587,6 +587,23 @@ enum FtStateNames
     ASID_THROWNCRAZYHAND,
     ASID_BARRELCANNONWAIT,
 };
+enum FtDemoStateNames
+{
+    ASDEMO_WIN1,
+    ASDEMO_WIN1WAIT,
+    ASDEMO_WIN2,
+    ASDEMO_WIN2WAIT,
+    ASDEMO_NULL,
+    ASDEMO_WIN3,
+    ASDEMO_WIN3WAIT,
+    ASDEMO_SELECTED,
+    ASDEMO_SELECTEDWAIT,
+    ASDEMO_LOSE,
+    ASDEMO_INTROL,
+    ASDEMO_INTROR,
+    ASDEMO_ENDING,
+    ASDEMO_WAIT,
+};
 enum FtAuxillaryAnim
 {
     FTAUXANIM_WIN1,
@@ -669,7 +686,7 @@ enum FtScriptCmd
 #define ASID_JUMPS 1004
 #define ASID_FALLS 1005
 
-enum Ft_AttackKind
+typedef enum Ft_AttackKind
 {
     ATKKIND_0,
     ATKKIND_NONE,
@@ -759,7 +776,7 @@ enum Ft_AttackKind
     ATKKIND_85,
     ATKKIND_86,
     ATKKIND_87,
-};
+} Ft_AttackKind;
 typedef enum FtStateKind
 {
     FTSTATEKIND_FREE,        // generally actionable states, like wait, run, jump
@@ -1386,7 +1403,7 @@ struct ftCommonData
     float x7c;                                 // 0x7c
     float x80;                                 // 0x80
     float x84;                                 // 0x84
-    float x88;                                 // 0x88
+    float lstick_fastfall;                     // 0x88
     float x8c;                                 // 0x8c
     float lstick_rebirthfall;                  // 0x90
     float x94;                                 // 0x94
@@ -2212,9 +2229,9 @@ struct FighterData
     FtCoin coinbox[2];                 // 0x1614
     int dynamics_hit_num;              // 0x166c
     DynamicHit dynamics_hit[11];       // 0x1670
-    float x1828;                       // 0x1828
     struct dmg                         // 0x182c
     {                                  //
+        int x1828;                     // 0x1828
         int behavior;                  // 0x182c
         float percent;                 // 0x1830
         int x1834;                     // 0x1834
@@ -2274,9 +2291,9 @@ struct FighterData
         int x1950;                     // 0x1950
         float x1954;                   // 0x1954,
         float hitlag_env_frames;       // 0x1958, Environment Hitlag Counter (used for peachs castle switches)
-        float hitlag_frames;           // 0x195c
+        float hitlag_frames;           // 0x195c, remaining hitlag frames
         float vibrate_mult;            // 0x1960
-        float x1964;                   // 0x1964
+        float hitlag_set;              // 0x1964, temp variable, when using a shield with set hitlag, it stores it here (marth counter)
     } dmg;                             //
     struct jump                        // 0x1968
     {                                  //
@@ -2287,8 +2304,8 @@ struct FighterData
     int x1970;                         // 0x1970
     GOBJ *item_held;                   // 0x1974
     GOBJ *x1978;                       // 0x1978
-    int x197c;                         // 0x197c
-    GOBJ *item_head;                   // 0x1980
+    GOBJ *bunny_hood;                  // 0x197c
+    GOBJ *lip_flower;                  // 0x1980
     GOBJ *item_held_spec;              // 0x1984, special held item
     struct hurt                        // 0x1988
     {                                  //
@@ -2309,8 +2326,8 @@ struct FighterData
         GOBJ *dmg_source;      // 0x19a8, points to the entity that hit the shield
         float hit_direction;   // 0x19ac
         int hit_attr;          // 0x19b0, attribute of the hitbox that collided
-        float x19b4;           // 0x19b4
-        float x19b8;           // 0x19b8
+        float hitlag_set;      // 0x19b4, set amount of hitlag all hits should incur
+        float hitlag_set2;     // 0x19b8
         int dmg_taken3;        // 0x19bc, seems to be the most recent amount of damage taken
     } shield;
     struct shield_bubble // 0x19c0
@@ -2402,7 +2419,7 @@ struct FighterData
     u8 x2071_x0f : 4;                     // 0x2071, 0x0f
     u8 x2072;                             // 0x2072
     u8 x2073;                             // 0x2073
-    int x2074;                            // 0x2074, this is the start of some struct... present in items as well @ 0xd94
+    int x2074;                            // 0x2074, marth's multi hit side b sets this to his percent. this is the start of some struct... present in items as well @ 0xd94
     int x2078;                            // 0x2078
     int x207c;                            // 0x207c
     int x2080;                            // 0x2080
@@ -2561,9 +2578,9 @@ struct FighterData
         unsigned char x221a_7 : 1;                     // 0x2 - 0x221a
         unsigned char gfx_persist : 1;                 // 0x1 - 0x221a
         unsigned char shield_enable : 1;               // 0x80 - 0x221b
-        unsigned char shield_x40 : 1;                  // 0x40 - 0x221b
+        unsigned char shield_always_refract : 1;       // 0x40 - 0x221b
         unsigned char shield_x20 : 1;                  // 0x20 - 0x221b
-        unsigned char shield_x10 : 1;                  // 0x10 - 0x221b
+        unsigned char shield_x10 : 1;                  // 0x10 - 0x221b, unk peach toad enables this
         unsigned char shield_x8 : 1;                   //  0x8 - 0x221b
         unsigned char x221b_grab : 1;                  // 0x4 - 0x221b, is checked at 80079304, skips some logic
         unsigned char x221b_7 : 1;                     // 0x2 - 0x221b
@@ -2579,8 +2596,8 @@ struct FighterData
         unsigned char ik_rfoot : 1;                    // 0x80 - 0x221d
         unsigned char ik_lfoot : 1;                    // 0x40 - 0x221d
         unsigned char ftvis_reqrevert : 1;             // 0x20 - 0x221d, request all ftvis revert to default next state change
-        unsigned char input_enable : 1;                // 0x10 - 0x221d
-        unsigned char x221d_5 : 1;                     // 0x8 - 0x221d
+        unsigned char input_update_history : 1;        // 0x10 - 0x221d, will update input history
+        unsigned char input_disable : 1;               // 0x8 - 0x221d, disables new inputs from being read
         unsigned char nudge_disable : 1;               // 0x4 - 0x221d
         unsigned char ground_ignore : 1;               // 0x2 - 0x221d
         unsigned char x221d_8 : 1;                     // 0x1 - 0x221d
@@ -3162,6 +3179,7 @@ void Fighter_EnterLightThrow(GOBJ *fighter, int stateID);
 void Fighter_EnterDamageFall(GOBJ *fighter);
 void Fighter_EnterWait(GOBJ *fighter);
 void Fighter_EnterAirCatch(GOBJ *fighter);
+void Fighter_EnterJump(GOBJ *fighter);
 void Fighter_EnterFall(GOBJ *fighter);
 void Fighter_EnterFallAerial(GOBJ *fighter);
 void Fighter_EnterSpecialFall(GOBJ *fighter, int can_fastfall, int no_soft_landing, int can_interrupt_landing, float air_drift_multiplier, float landing_frames);
@@ -3175,6 +3193,7 @@ void Fighter_EnterDeadDown(GOBJ *f);
 void Fighter_EnterDeadUp(GOBJ *f);
 void Fighter_EnterDeadLeft(GOBJ *f);
 void Fighter_EnterDeadRight(GOBJ *f);
+void Fighter_EnterDeadUpStar(GOBJ *f);
 int Fighter_CheckNearbyLedges(GOBJ *fighter);
 int Fighter_CheckForOtherFighterOnLedge(GOBJ *fighter);
 void Fighter_EnterCliffCatch(GOBJ *fighter);
@@ -3210,8 +3229,9 @@ int Fighter_GetStaminaHP(int ply);
 void Fighter_SetStaminaHP(int ply, int hp);
 int Fighter_CheckStaminaMode(int ply);
 void Fighter_SetStaminaMode(int ply, int is_stamina);
-void Fighter_SetFallNum(int index, int ms, int falls);
-int Fighter_GetFallNum(int index, int ms);
+void Fighter_SetFallNum(int ply, int ms, int falls);
+int Player_GetNameTabSlotNumber(int ply);
+int Fighter_GetFallNum(int ply, int ms);
 void Fighter_EnableCollUpdate(FighterData *fighter);
 void Fighter_EnterDamageState(GOBJ *fighter, int stateID, float new_facing_dir); // new_facing_dir = 0 to use current
 s8 Fighter_BoneLookup(FighterData *fighter, int boneID);
@@ -3234,6 +3254,7 @@ void Fighter_CollAir_IgnoreLedge(GOBJ *fighter, void *callback);
 int Fighter_CollAir_IgnoreLedge_NoCB(GOBJ *fighter);
 int Fighter_CollAir_SoftLanding(GOBJ *fighter);
 int Fighter_CollAir_DefineECB(GOBJ *fighter, ECBSize *ecb);
+void Fighter_CollGround_StopLedge_Ottotto(GOBJ *fighter);
 int Fighter_Coll_DamageState(GOBJ *fighter);
 int Fighter_Coll_CheckToPass(GOBJ *fighter, int floor_type); // usually used as a callback, pass = fall through platform
 int Fighter_IASACheck_CliffCatch(GOBJ *fighter);
@@ -3267,7 +3288,7 @@ void Fighter_PhysAir_LimitXVelocity(FighterData *fighter);
 void Fighter_Phys_UseAnimYVelocity(GOBJ *fighter);
 void Fighter_Phys_UseAnimPos(GOBJ *fighter);
 void Fighter_Phys_UseAnimPosAndStick(GOBJ *fighter);
-void Fighter_PhysGround_CalculateVelocity(FighterData * fd, float accel, float terminal, float friction);
+void Fighter_PhysGround_CalculateVelocity(FighterData *fd, float accel, float terminal, float friction);
 int Fighter_CollGround_DefineECB(GOBJ *f, ECBSize *ecb);
 void Fighter_SetGrounded(FighterData *fighter);
 void Fighter_SetGrounded2(FighterData *fighter);
@@ -3432,6 +3453,8 @@ void Fighter_UpdateModelShift(GOBJ *f);                     // updates the offse
 void Fighter_GivePersistentIntangibility(GOBJ *f, int frames);
 void Fighter_TDI(FighterData *fp);
 void Fighter_PlayQueuedDamageSounds(FighterData *fp);
+void Fighter_UpdateVictimPosition(GOBJ *fighter);
+void Fighter_SetEyeDamaged(GOBJ *fighter);
 GXColor Fighter_GetPlyHUDColor(int ply); // used for lupe, pokemon stadium text color, results viewport border
 /// @brief Checks if fighter should process CPU events for this frame
 /// @param  FighterData pointer

@@ -11,12 +11,14 @@
 8000B09C:JOBJ_CheckAObjEnd
 8000B1CC:JOBJ_GetWorldPosition
 8000B804:JOBJ_ResetFromDesc
+8000BA0C:JOBJ_SetAnimationRate
 8000BDB4:JOBJ_GetJointAnimCurrFrame
 8000BDB4:JOBJ_GetJointAnimNextFrame
 8000BE40:JOBJ_GetJointAnimFrameTotal
 8000C1C0:JOBJ_AttachPosition
 8000C2F8:JOBJ_AttachPositionRotation
 8000C390:JOBJ_Detach
+8000C490:JOBJ_Blend
 8000D2EC:Vec3_Normalize
 8000D3B0:Vec2_Normalize
 8000D4A0:Vec2_Add
@@ -120,8 +122,11 @@
 8003006C:Match_SetDevelopCamera
 80030688:Match_CreateCamera
 80030730:Match_CameraSetFOV
+80030a50:Match_GetCamera
 80030E44:ScreenRumble_Execute
 800310A0:Match_SetStageRenderFlags
+800311CC:Match_SetFarClip
+800311DC:Match_SetNearClip
 80031724:Fighter_GetPlayerblock
 80031CB0:Preload_LoadFighter
 80032330:Fighter_GetExternalID
@@ -156,6 +161,7 @@
 800346A8:Fighter_SetStaminaMode
 80034D78:Fighter_GetFallNum
 80034E8C:Fighter_SetFallNum
+8003556C:Fighter_GetNameTabSlotNumber
 80036244:Fighter_GetStaleMoveTable
 80036538:Fighter_GetShieldColorIndex
 80036A08:Fighter_Playerblock_Init
@@ -184,6 +190,7 @@
 8004CAE8:Collision_CheckRightWallCollision
 8004CB30:Collision_CheckLeftWallCollision
 8004CB78:Collision_CheckGroundCollision
+8004D17C:GrColl_GetJoints
 8004D288:Stage_InitLines
 8004F008:GrColl_RaycastGround
 8004F008:GrColl_RaycastUnk
@@ -195,9 +202,15 @@
 80054C6C:Stage_GetLinesDirection
 80054DFC:GrColl_GetLineSlope
 80054ED8:GrColl_CheckIfLineEnabled
+800552B0:GrColl_InitMovingGroup
+80055E24:GrColl_EnableGroup
+80055E9C:GrColl_UpdateMovingGroup
+800565DC:GrColl_RecalculateRange
+800566F8:GrColl_UpdateVertexPosition
 800567C0:GrColl_GetPosDifference
 80056B6C:Stage_GetLinesGroup
 80056C54:GrColl_CrawlGround
+80057424:GrColl_SetupMovingGroup
 80057638:Stage_EnableLineGroup
 80057BC0:Stage_DisableLineGroup
 800580C8:Stage_SetGroundCallback
@@ -322,6 +335,7 @@
 8007EE0C:Fighter_DamageRumble
 8007EFC8:Fighter_Transform
 8007F694:Fighter_GetBaseScale
+8007F824:Fighter_SetEyeDamaged
 8008021C:Fighter_UpdateModelShift
 80080E18:GXLink_Fighter
 80081298:Fighter_IASACheck_CliffCatch
@@ -345,6 +359,7 @@
 80083B68:Fighter_CollAir_IgnoreGround
 8008403C:Fighter_CollGround_PassLedgeCB
 80084104:Fighter_CollGround_StopLedge_EnterFall
+800843FC:Fighter_CollGround_StopLedge_Ottotto
 80084DB0:Fighter_PhysAir_ApplyGravityFastfall
 80084EEC:Fighter_PhysAir_ApplyGravityDecayX
 80084F3C:Fighter_PhysGround_ApplyFriction
@@ -446,6 +461,7 @@
 800C97A8:Fighter_IASACheck_Turn
 800CAE80:Fighter_CheckJumpInput
 800CAED0:Fighter_IASACheck_JumpF
+800CB250:Fighter_EnterJump
 800CB6EC:Fighter_MultiJump_TurnThink
 800CB870:Fighter_IASACheck_JumpAerial
 800CBBC0:Fighter_EnterJumpAerial
@@ -459,6 +475,7 @@
 800D3950:Fighter_EnterDeadRight
 800D3BC8:Fighter_EnterDeadDown
 800D3E40:Fighter_EnterDeadUp
+800d40B8:Fighter_EnterDeadUpStar
 800D4F24:Fighter_EnterSleep
 800D4FF4:Fighter_EnterRebirth
 800D54A4:Fighter_UpdateRebirthPlatformPos
@@ -466,6 +483,7 @@
 800D5CB0:Fighter_EnterSpecialLanding
 800DA698:Fighter_EnterCatchCut
 800DB368:Fighter_ThrownAttach
+800DB464:Fighter_UpdateVictimPosition
 800DC750:Fighter_EnterCaptureCut
 800DC920:Fighter_BreakGrab
 800DCFD4:Fighter_BreakGrabUnk
@@ -478,6 +496,7 @@
 800DFC70:Fighter_CheckWalkInput
 800EEEC4:Kirby_ExecuteAbilityLossFunction
 800F190C:Kirby_ResetCopyCharVars
+800F1F1C:Kirby_CheckSpawnWallGFX
 8015CC34:Memcard_GetRules1
 8015CC58:Memcard_GetRules4
 8015ECB0:BGM_GetMenuBGM
@@ -540,6 +559,15 @@
 801B2BA4:ClassicMode_GetNextNonDuplicateLineupDesc
 801C0378:Match_InitStage
 801C0498:Stage_GetScale
+801C052C:Stage_SetBubbleColorTopLeft
+801C0544:Stage_SetBubbleColorTopRight
+801C055C:Stage_SetBubbleColorBottomLeft
+801C0574:Stage_SetBubbleColorBottomRight
+801C058C:Stage_SetBubbleColorMiddleLeft
+801C05A4:Stage_SetBubbleColorMiddleRight
+801C05BC:Stage_SetBubbleColorBottomCenter
+801C05D4:Stage_SetBubbleColorTopCenter
+801C05EC:Stage_SetBubbleColorMiddleCenter
 801C10B8:Match_StoreGoCallback
 801C1A20:Stage_CreateMapGObjDefineIndex
 801C2BA4:Stage_GetMapGObj
@@ -556,6 +584,7 @@
 801C53EC:SFX_Play
 801C5440:Stage_PlaySFX
 801C54DC:Stage_CheckSFX
+801C5A94:Stage_GetBGM
 801C5DB0:GXLink_Stage
 801C6324:Stage_GetStageFiles
 801C6330:Stage_GetStageFile
@@ -651,6 +680,7 @@
 8026E15C:Item_CollAir_Bounce
 8026E414:Item_CollAir_Land
 8026EECC:GXLink_Item
+8027137C:Item_UpdateAllHitboxPositions
 8027146C:Item_ResetAllHitPlayers
 80271508:Item_SetHurtboxTangibility
 8027236C:Item_GiveOwnershipToAttacker
@@ -666,8 +696,11 @@
 80273030:Item_ReflectVelocity
 80273078:Item_BounceOffShield
 80273130:Item_DecLifeTimer
+802731E0:Item_PlayThrownSound
+8027321c:Item_PlayHitStageSound
 80273408:Item_ResetVelocity
 80273454:Item_ClearVelocity
+8027429c:Item_ReleaseFromFighter
 80274594:Item_ScaleToPlayerSize
 80274658:Item_UpdateSpin
 80274F28:Item_InitGrab
@@ -705,6 +738,8 @@
 802F7034:Match_DisplayEndGraphic
 802FA2D0:KOCount_Update
 802FA5BC:KOCount_Init
+802FF570:Match_HideScoreDisplay
+802FF620:Match_ShowScoreDisplay
 803020FC:DevelopText_Deactivate
 80302810:DevelopText_Activate
 80302834:DevelopText_CreateDataTable
@@ -769,6 +804,11 @@
 8033E9B0:GXInitTexObj
 8033EFD0:GXLoadTexObj
 8033F270:GXInvalidateTexAll
+8033F758:GXSetTevIndirect
+8033F7F4:GXSetIndTexMtx
+8033f954:GXSetIndTexCoordScale
+8033fB28:GXSetIndTexOrder
+8033FC60:GXSetNumIndStages
 8033FDC4:GXSetTevOp
 8033FF68:GXSetTevColorIn
 8033FFE8:GXSetTevAlphaIn
@@ -792,6 +832,7 @@
 803421A4:PSMTXIdentity
 803421D0:PSMTXCopy
 80342204:PSMTXConcat
+80342320:PSMTXInverse
 80342418:MTXRotRad
 80342530:MTXRotAxisRad
 80342690:MTXQuat
@@ -856,6 +897,10 @@
 8035DDD0:DOBJ_ClearFlags
 8035DEA0:DOBJ_AddAnimAll
 8035E5C0:TOBJ_AddAnim
+8036121C:Tlut_Alloc
+80361274:Tlut_Free
+803612F8:ImageDesc_Alloc
+80361350:ImageDesc_Free
 80361A74:HSD_StateSetLineWidth
 80361AD8:HSD_StateSetCullMode
 80361B18:HSD_StateSetBlendMode
@@ -882,7 +927,9 @@
 80364038:AOBJ_ClearFlags
 8036410C:AOBJ_ReqAnim
 8036414C:AOBJ_StopAnim
+80364190:AOBJ_InterpretAnim
 80364340:fmod
+8036439c:AOBJ_LoadDesc
 80364C08:JOBJ_ForEachAnim
 8036530C:AOBJ_SetRate
 80365678:LObj_AnimAll
@@ -918,15 +965,17 @@
 8036C244:HSD_ClearVtxDesc
 8036F1F8:JOBJ_MakeMatrix
 8036F4C8:JOBJ_RemoveAnimByFlags
+8036F644:JOBJ_RemoveAnim
 8036F6B4:JOBJ_RemoveAnimAll
 8036F718:JOBJ_ReqAnimByFlags
 8036F7B0:JOBJ_ReqAnimAllByFlags
 8036F8BC:JOBJ_ReqAnimAll
 8036F934:JOBJ_ReqAnim
+8036fA10:JOBJ_AddAnim
 8036FB5C:JOBJ_AddAnimAll
 80370780:JOBJ_Anim
 80370928:JOBJ_AnimAll
-803709DC:JObj_DispAll
+803709DC:JOBJ_DispAll
 80370E44:JOBJ_LoadJoint
 80371370:JOBJ_Remove
 80371590:JOBJ_RemoveAll
@@ -942,6 +991,7 @@
 803732E8:JOBJ_SetMtxDirtySub
 803738D0:HSD_StateInitDirect
 803740E8:JOBJ_BillBoard
+803749B0:JOBJ_Disp
 80374A88:CObj_SetEraseColor
 80375404:HSD_GetHeapID
 8037540C:HSD_SetHeapID
@@ -1036,7 +1086,8 @@
 803A5DA0:Text_DestroyAllSisCanvas
 803A5E70:MainMenu_DestroyAllTextCanvases
 803A5FBC:CSS_FreeText
-803A6048:Text_InitSisHeap
+803a6048:Text_InitSisHeap
+803a5fbc:Text_DestroySisHeap
 803A611C:Text_CreateCanvas
 803A62A0:Text_LoadSdFile
 803A6368:Text_SetSisText
